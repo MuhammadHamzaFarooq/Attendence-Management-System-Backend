@@ -6,8 +6,11 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 let URI = `mongodb+srv://admin:12345@nodejscluster01.u7jbf.mongodb.net/attendenceDB?retryWrites=true&w=majority`;
 
+// call middleware
 app.use(express.json());
-app.use(cors()); //global middleware
+app.use(cors());
+
+//global middleware
 
 // Connect to Database
 mongoose
@@ -51,9 +54,16 @@ app.get("/", (req, res) => {
 
 app.post("/student", (req, res) => {
   const { Name, Course, RollNo, Batch, Semester } = req.body;
-  res.send("Data Saved");
-  console.log(Name, Course, RollNo, Batch, Semester)
-
+  const obj = {
+    Name,
+    Course,
+    RollNo,
+    Batch,
+    Semester,
+  };
+  res.send("Data Recieved"+obj);
+  console.log("data recieved");
+  console.log(Name, Course, RollNo, Batch, Semester);
 });
 
 app.listen(PORT, () => {
