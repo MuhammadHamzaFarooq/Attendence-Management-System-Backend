@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-let URI = `mongodb+srv://admin:12345@nodejscluster01.u7jbf.mongodb.net/attendenceDB?retryWrites=true&w=majority`;
+// let URI = `mongodb+srv://admin:12345@nodejscluster01.u7jbf.mongodb.net/attendenceDB?retryWrites=true&w=majority`;
+
 
 // call middleware
 app.use(express.json());
@@ -14,7 +15,7 @@ app.use(cors());
 
 // Connect to Database
 mongoose
-  .connect(URI)
+  .connect(`mongodb://localhost:27017/AMS_DB`)
   .then(() => {
     console.log("Connected to database Successfully");
   })
@@ -50,21 +51,13 @@ app.get("/", (req, res) => {
   res.send("Attendence Management System Server Online");
 });
 
-// Post Request
-
+// post Request
 app.post("/student", (req, res) => {
-  const { Name, Course, RollNo, Batch, Semester } = req.body;
-  const obj = {
-    Name,
-    Course,
-    RollNo,
-    Batch,
-    Semester,
-  };
-  res.send("Data Recieved"+obj);
-  console.log("data recieved");
-  console.log(Name, Course, RollNo, Batch, Semester);
+  res.send("Post Request "+req.body);
+  console.log(req.body)
+
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
