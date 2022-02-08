@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-// let URI = `mongodb+srv://admin:12345@nodejscluster01.u7jbf.mongodb.net/attendenceDB?retryWrites=true&w=majority`;
+let URI = `mongodb+srv://admin:12345@nodejscluster01.u7jbf.mongodb.net/attendenceDB?retryWrites=true&w=majority`;
 
 // call middleware
 app.use(express.json());
@@ -14,7 +14,7 @@ app.use(cors());
 
 // Connect to Database
 mongoose
-  .connect(`mongodb://localhost:27017/AMS_DB`)
+  .connect(URI)
   .then(() => {
     console.log("Connected to database Successfully");
   })
