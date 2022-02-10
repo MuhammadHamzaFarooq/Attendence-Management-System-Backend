@@ -51,7 +51,6 @@ const attendenceSchema = mongoose.Schema({
   id: {
     type: String,
     required: true,
-    unique: true,
   },
   attendence: {
     type: String,
@@ -68,7 +67,6 @@ const attendenceSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
   },
 });
 
