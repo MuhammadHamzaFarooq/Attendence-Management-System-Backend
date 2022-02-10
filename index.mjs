@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 const app = express();
 const PORT = process.env.PORT || 8000;
 let URI = `mongodb+srv://admin:12345@nodejscluster01.u7jbf.mongodb.net/attendenceDB?retryWrites=true&w=majority`;
-
+// let localURI = 'mongodb://localhost:27017/AMS_DB'
 // call middleware
 app.use(express.json());
 app.use(cors());
@@ -25,22 +25,23 @@ mongoose
 const studentSchema = mongoose.Schema({
   Name: {
     type: String,
-    isRequired: true,
+    required: true,
   },
   Course: {
     type: String,
-    isRequired: true,
+    required: true,
   },
   RollNo: {
     type: String,
-    isRequired: true,
+    required: true,
   },
   Batch: {
     type: String,
-    isRequired: true,
+    required: true,
   },
   Semester: {
     type: String,
+    required: true,
   },
 });
 
@@ -49,19 +50,25 @@ const Student = mongoose.model("Student", studentSchema);
 const attendenceSchema = mongoose.Schema({
   id: {
     type: String,
-    isRequired: true,
+    required: true,
+    unique: true,
   },
   attendence: {
     type: String,
-    isRequired: true,
+    required: true,
   },
   date: {
     type: String,
-    isRequired: true,
+    required: true,
   },
   createdOn: {
     type: Date,
     default: Date.now,
+  },
+  name: {
+    type: String,
+    required: true,
+    unique: true,
   },
 });
 
@@ -69,12 +76,13 @@ const Attendence = mongoose.model("Attendence", attendenceSchema);
 
 // post Request student
 app.post("/attendence", (req, res) => {
-  const { id, attendence, date } = req.body;
+  const { id, attendence, date ,name } = req.body;
 
   let attendenceStd = {
     id,
     attendence,
     date,
+    name
   };
 
   let studentAttendence = new Attendence(attendenceStd);
